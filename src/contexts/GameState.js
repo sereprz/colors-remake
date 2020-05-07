@@ -1,31 +1,18 @@
-import React, { createContext, Component } from 'react';
+import React, { useState } from 'react';
+import Grid from '../components/Grid.js';
 
 const maxSize = 10;
 
-export const GameState = createContext();
-
-class GameStateProvider extends Component {
-
-  state = {
+export default function GameStateProvider() {
+  const [gameState, setGameState] = useState({
     level: 1,
-    size: 6,
+    size: 2,
     color: [200, 100, 35]
+  })
+
+  const updateGameState = () => {
+    setGameState({ level: gameState.level + 1, size: gameState.size < maxSize ? gameState.size + 1 : maxSize, color: [Math.floor(Math.random() * (360)), 100, Math.ceil(Math.random() * (90))] });
   }
 
-  updateGameState = () => {
-
-    this.setState({ level: this.state.level + 1 });
-    this.setState({ size: this.state.size < maxSize ? this.state.size + 1 : maxSize })
-    this.setState({ color: [Math.floor(Math.random() * (360)), 100, Math.ceil(Math.random() * (90))] })
-  }
-
-  render() {
-    return (
-      <GameState.Provider value={{ ...this.state, updateGameState: this.updateGameState }}>
-        {this.props.children}
-      </GameState.Provider>
-    );
-  }
+  return <div><Grid size={gameState.size} updateGameState={updateGameState} color={gameState.color}/></div>
 }
-
-export default GameStateProvider;
