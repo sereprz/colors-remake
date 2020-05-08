@@ -5,7 +5,7 @@ import Timer from './Timer.js';
 import PlayButton from './PlayButton.js';
 
 
-const gameTime = 10;
+const gameTime = 5;
 
 function generateColor() {
   const hue = Math.floor(Math.random() * (360));
@@ -22,7 +22,7 @@ function computeGridSize(score) {
 export default function Game() {
 
   const [score, setScore] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [gameState, setGameState] = useState('start');
   const [timeLeft, setTimeLeft] = useState(gameTime);
   const [color, setColor] = useState(generateColor())
 
@@ -31,19 +31,26 @@ export default function Game() {
   const [winner, setWinner] = useState(Math.floor(Math.random() * (size ** 2)))
 
   useEffect(() => {
-      if (timeLeft > 0 && isPlaying) {
+      if (timeLeft > 0 && gameState === 'playing') {
           setTimeout(() => {setTimeLeft(timeLeft - 1)}, 1000)
+      } else if (timeLeft === 0) {
+        setGameState('game-over')
       }
-  }, [timeLeft, isPlaying])
+  }, [timeLeft, gameState])
 
-  const startGame = () => { setIsPlaying(true)}
+  const startGame = () => { 
+    setTimeLeft(gameTime);
+    setScore(0);
+    setWinner(Math.floor(Math.random() * 4));
+    setGameState('playing')
+  }
 
   const updateScore = () => {
-  if (timeLeft > 0) {
-    setScore(score + 1);
-    setColor(generateColor());
-    setWinner(Math.floor(Math.random() * (size ** 2)))
-  }
+    if (timeLeft > 0) {
+      setScore(score + 1);
+      setColor(generateColor());
+      setWinner(Math.floor(Math.random() * (size ** 2)))
+    }
   }
 
   return (
@@ -56,7 +63,7 @@ export default function Game() {
         <Timer timeLeft={timeLeft} />
         </div>
       </div>
-      {isPlaying ? <Grid size={size} winner={winner} color={color} updateScore={updateScore} /> : <PlayButton startGame={startGame} />}
+      {gameState === 'playing' ? <Grid size={size} winner={winner} color={color} updateScore={updateScore} /> : <PlayButton gameState={gameState} startGame={startGame} />}
       <div className='right-side'></div>
     </div>
   )
