@@ -1,14 +1,11 @@
 import React from 'react';
 
-import Grid from './components/Grid.js'
-import GameStateProvider from './contexts/GameState.js';
+import Game from './components/Game.js';
 
 function App() {
   return (
     <div className="App">
-    <GameStateProvider>
-      <Grid />
-    </GameStateProvider>
+    <Game />
     </div>
   );
 }
