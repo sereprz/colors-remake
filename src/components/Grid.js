@@ -14,7 +14,7 @@ export default function Grid({ color, winner, size, updateScore }) {
     let rows = [];
     while (squares.length) rows.push(squares.splice(0, size));
 
-  return (
+    return (
       <div className='grid'>
         {rows.map((row, index) => {
           return (<div key={index}>

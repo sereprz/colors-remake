@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Grid from './Grid.js';
 import Score from './Score.js';
 import Timer from './Timer.js';
+import PlayButton from './PlayButton.js';
+
+
+const gameTime = 10;
 
 function generateColor() {
   const hue = Math.floor(Math.random() * (360));
@@ -18,24 +22,28 @@ function computeGridSize(score) {
 export default function Game() {
 
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(20);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(gameTime);
   const [color, setColor] = useState(generateColor())
-  const [size, setSize] = useState(computeGridSize(score));
+
+  const size = computeGridSize(score);
+  
   const [winner, setWinner] = useState(Math.floor(Math.random() * (size ** 2)))
 
-    useEffect(() => {
-        if (timeLeft > 0) {
-            setTimeout(() => {setTimeLeft(timeLeft - 1)}, 1000)
-        }
-    }, [timeLeft])
+  useEffect(() => {
+      if (timeLeft > 0 && isPlaying) {
+          setTimeout(() => {setTimeLeft(timeLeft - 1)}, 1000)
+      }
+  }, [timeLeft, isPlaying])
+
+  const startGame = () => { setIsPlaying(true)}
 
   const updateScore = () => {
-    if (timeLeft > 0) {
-      setScore(score + 1);
-      setColor(generateColor());
-      setSize(computeGridSize(score));
-      setWinner(Math.floor(Math.random() * (size ** 2)))
-    }
+  if (timeLeft > 0) {
+    setScore(score + 1);
+    setColor(generateColor());
+    setWinner(Math.floor(Math.random() * (size ** 2)))
+  }
   }
 
   return (
@@ -48,7 +56,7 @@ export default function Game() {
         <Timer timeLeft={timeLeft} />
         </div>
       </div>
-      <Grid size={size} winner={winner} color={color} updateScore={updateScore} />
+      {isPlaying ? <Grid size={size} winner={winner} color={color} updateScore={updateScore} /> : <PlayButton startGame={startGame} />}
       <div className='right-side'></div>
     </div>
   )
