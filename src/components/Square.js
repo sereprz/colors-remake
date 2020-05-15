@@ -1,10 +1,18 @@
 import React from 'react';
 
-export default function Square({ isWinning, color, clickHandler, size}) {
+function getColor(color, isWinning, score) {
+  let [h, s, l] = color;
+  
+  if (isWinning) {
+    l = l - (50/ ((0.3 * score) + 1))
+  }
+  return `hsl(${h},  ${s}%,  ${l}%)`
+}
 
-  const col = isWinning ? `hsl(${color[0]},  ${color[1]}%,  ${color[2] * 0.80}%)` : `hsl(${color[0]},  ${color[1]}%,  ${color[2]}%)`
+export default function Square({ isWinning, color, clickHandler, size, score}) {
 
   const width = (600/size) - 6;
+  const col = getColor(color, isWinning, score)
 
   return (
     <button onClick={isWinning ? clickHandler : () => {}} className='square' style={{ backgroundColor: col, width: width, height: width}}>

@@ -2,7 +2,7 @@ import React from 'react';
 import Square from './Square.js'
 
 
-export default function Grid({ color, winner, size, updateScore }) {
+export default function Grid({ color, winner, size, updateScore, score }) {
 
     let squares = [];
     for (let i = 0; i < size ** 2; i++) {
@@ -19,7 +19,7 @@ export default function Grid({ color, winner, size, updateScore }) {
         {rows.map((row, index) => {
           return (<div key={index}>
             {row.map(({ id, isWinning }) => {
-              return <Square color={color} size={size} key={id} isWinning={isWinning}   clickHandler={updateScore} />
+              return <Square color={color} size={size} key={id} isWinning={isWinning}   clickHandler={updateScore} score={score} />
             })}
           </div>)
         })}

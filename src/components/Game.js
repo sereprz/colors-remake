@@ -5,7 +5,7 @@ import Timer from './Timer.js';
 import PlayButton from './PlayButton.js';
 
 
-const gameTime = 5;
+const gameTime = 60;
 
 function generateColor() {
   const hue = Math.floor(Math.random() * (360));
@@ -63,7 +63,7 @@ export default function Game() {
         <Timer timeLeft={timeLeft} />
         </div>
       </div>
-      {gameState === 'playing' ? <Grid size={size} winner={winner} color={color} updateScore={updateScore} /> : <PlayButton gameState={gameState} startGame={startGame} />}
+      {gameState === 'playing' ? <Grid size={size} winner={winner} color={color} updateScore={updateScore} score={score} /> : <PlayButton gameState={gameState} startGame={startGame} />}
       <div className='right-side'></div>
     </div>
   )
