@@ -11,7 +11,7 @@ function getColor(color, isWinning, score) {
 
 export default function Square({ isWinning, color, clickHandler, size, score}) {
 
-  const width = (600/size) - 6;
+  const width = Math.floor(600/size) - 6;
   const col = getColor(color, isWinning, score)
 
   return (
