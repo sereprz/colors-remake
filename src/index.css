@@ -2,11 +2,13 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Architects Daughter', cursive;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f3fcfc;
 }
 
 code {
@@ -16,22 +18,28 @@ code {
 
 .App {
   text-align: center;
-  margin: 10px;
-  background-color: snow;
+  font-size: 2rem;
+  margin: 60px;
+}
+
+.header {
+  padding: 15px;
+  text-align: center;
+  background: #33cccc;
+  color: #f3fcfc;
+  font-size: 30px;
 }
 
 .row {
   display: flex;
   flex-direction: row;
 }
-.game-state {
-  display: flex;
+
+.game-state, .instructions {
+  flex-grow: 1;display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.game-state, .right-side {
-  flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 .grid {
@@ -47,6 +55,8 @@ code {
 }
 
 .play-button {
+  font-family: inherit;
+  font-size: 6rem;
   border-radius: 20px;
   border: 4px solid black;
   width: 100%;
@@ -54,5 +64,5 @@ code {
 }
 
 .big {
-  font-size: 4rem;
+  font-size: 5rem;
 }
